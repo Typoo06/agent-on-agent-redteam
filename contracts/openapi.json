@@ -1,0 +1,1897 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Agent-on-Agent Red Teaming Platform API",
+    "summary": "Backend API for authorized local/lab LLM red-team campaigns.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns": {
+      "get": {
+        "tags": [
+          "campaigns"
+        ],
+        "summary": "List Campaigns",
+        "operationId": "list_campaigns_campaigns_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CampaignRead"
+                  },
+                  "type": "array",
+                  "title": "Response List Campaigns Campaigns Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "campaigns"
+        ],
+        "summary": "Create Campaign",
+        "operationId": "create_campaign_campaigns_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CampaignCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}": {
+      "get": {
+        "tags": [
+          "campaigns"
+        ],
+        "summary": "Get Campaign",
+        "operationId": "get_campaign_campaigns__campaign_id__get",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "campaigns"
+        ],
+        "summary": "Update Campaign",
+        "operationId": "update_campaign_campaigns__campaign_id__patch",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CampaignUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "campaigns"
+        ],
+        "summary": "Delete Campaign",
+        "operationId": "delete_campaign_campaigns__campaign_id__delete",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/targets": {
+      "get": {
+        "tags": [
+          "targets"
+        ],
+        "summary": "List Targets",
+        "operationId": "list_targets_targets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/TargetRead"
+                  },
+                  "type": "array",
+                  "title": "Response List Targets Targets Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "targets"
+        ],
+        "summary": "Create Target",
+        "operationId": "create_target_targets_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TargetCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TargetRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/targets/{target_id}/validate-scope": {
+      "post": {
+        "tags": [
+          "targets"
+        ],
+        "summary": "Validate Target Scope",
+        "operationId": "validate_target_scope_targets__target_id__validate_scope_post",
+        "parameters": [
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Target Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScopeValidationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/targets/{target_id}/probe-health": {
+      "post": {
+        "tags": [
+          "targets"
+        ],
+        "summary": "Probe Target Health",
+        "operationId": "probe_target_health_targets__target_id__probe_health_post",
+        "parameters": [
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Target Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TargetHealthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/{campaign_id}/runs": {
+      "post": {
+        "tags": [
+          "runs"
+        ],
+        "summary": "Create Run",
+        "operationId": "create_run_campaigns__campaign_id__runs_post",
+        "parameters": [
+          {
+            "name": "campaign_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Campaign Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CampaignRunCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignRunRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs": {
+      "get": {
+        "tags": [
+          "runs"
+        ],
+        "summary": "List Runs",
+        "operationId": "list_runs_runs_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CampaignRunRead"
+                  },
+                  "type": "array",
+                  "title": "Response List Runs Runs Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}": {
+      "get": {
+        "tags": [
+          "runs"
+        ],
+        "summary": "Get Run",
+        "operationId": "get_run_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignRunRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}/cancel": {
+      "post": {
+        "tags": [
+          "runs"
+        ],
+        "summary": "Cancel Run",
+        "operationId": "cancel_run_runs__run_id__cancel_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunActionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}/retry": {
+      "post": {
+        "tags": [
+          "runs"
+        ],
+        "summary": "Retry Run",
+        "operationId": "retry_run_runs__run_id__retry_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignRunRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}/transcript": {
+      "get": {
+        "tags": [
+          "runs"
+        ],
+        "summary": "Get Transcript",
+        "operationId": "get_transcript_runs__run_id__transcript_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}/judgement": {
+      "get": {
+        "tags": [
+          "runs"
+        ],
+        "summary": "Get Judgement",
+        "operationId": "get_judgement_runs__run_id__judgement_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JudgementRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/{run_id}/metrics": {
+      "get": {
+        "tags": [
+          "runs"
+        ],
+        "summary": "Get Run Metrics",
+        "operationId": "get_run_metrics_runs__run_id__metrics_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunMetricsRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CampaignCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "scenario": {
+            "$ref": "#/components/schemas/ScenarioConfig"
+          },
+          "red_agent": {
+            "$ref": "#/components/schemas/RedAgentProfile"
+          },
+          "target": {
+            "$ref": "#/components/schemas/TargetConfig"
+          },
+          "judge": {
+            "$ref": "#/components/schemas/JudgeProfile"
+          },
+          "scope_policy": {
+            "$ref": "#/components/schemas/ScopePolicyConfig"
+          },
+          "max_turns": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 1.0,
+            "title": "Max Turns",
+            "default": 10
+          },
+          "max_tokens": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Max Tokens",
+            "default": 20000
+          },
+          "timeout_seconds": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Timeout Seconds",
+            "default": 900
+          },
+          "parallelism": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Parallelism",
+            "default": 1
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "scenario",
+          "target"
+        ],
+        "title": "CampaignCreate"
+      },
+      "CampaignRead": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "scenario": {
+            "$ref": "#/components/schemas/ScenarioConfig"
+          },
+          "red_agent": {
+            "$ref": "#/components/schemas/RedAgentProfile"
+          },
+          "target": {
+            "$ref": "#/components/schemas/TargetConfig"
+          },
+          "judge": {
+            "$ref": "#/components/schemas/JudgeProfile"
+          },
+          "scope_policy": {
+            "$ref": "#/components/schemas/ScopePolicyConfig"
+          },
+          "max_turns": {
+            "type": "integer",
+            "maximum": 200.0,
+            "minimum": 1.0,
+            "title": "Max Turns",
+            "default": 10
+          },
+          "max_tokens": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Max Tokens",
+            "default": 20000
+          },
+          "timeout_seconds": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Timeout Seconds",
+            "default": 900
+          },
+          "parallelism": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Parallelism",
+            "default": 1
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CampaignStatus"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "scenario",
+          "target",
+          "id",
+          "status"
+        ],
+        "title": "CampaignRead"
+      },
+      "CampaignRunCreate": {
+        "properties": {
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "overrides": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Overrides"
+          }
+        },
+        "type": "object",
+        "title": "CampaignRunCreate"
+      },
+      "CampaignRunRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "campaign_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Campaign Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CampaignStatus"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "ended_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ended At"
+          },
+          "cancel_requested_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancel Requested At"
+          },
+          "failure_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Reason"
+          },
+          "celery_task_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Celery Task Id"
+          },
+          "metrics": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metrics"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "campaign_id",
+          "status"
+        ],
+        "title": "CampaignRunRead"
+      },
+      "CampaignStatus": {
+        "type": "string",
+        "enum": [
+          "DRAFT",
+          "QUEUED",
+          "RUNNING",
+          "CANCELLING",
+          "CANCELLED",
+          "SUCCEEDED",
+          "FAILED",
+          "INCONCLUSIVE",
+          "HUMAN_REVIEW",
+          "ERROR",
+          "TIMEOUT"
+        ],
+        "title": "CampaignStatus"
+      },
+      "CampaignUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "scenario": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScenarioConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "red_agent": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RedAgentProfile"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "target": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TargetConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "judge": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JudgeProfile"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "scope_policy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScopePolicyConfig"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "max_turns": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 200.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Turns"
+          },
+          "max_tokens": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Tokens"
+          },
+          "timeout_seconds": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timeout Seconds"
+          },
+          "parallelism": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallelism"
+          }
+        },
+        "type": "object",
+        "title": "CampaignUpdate"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "service",
+          "version"
+        ],
+        "title": "HealthResponse"
+      },
+      "JudgeProfile": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Provider",
+            "default": "mock"
+          },
+          "model": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Model",
+            "default": "mock-judge"
+          },
+          "verifier_names": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Verifier Names"
+          },
+          "cross_model_adjudication": {
+            "type": "boolean",
+            "title": "Cross Model Adjudication",
+            "default": false
+          },
+          "human_review_threshold": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Human Review Threshold",
+            "default": 0.5
+          },
+          "config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Config"
+          }
+        },
+        "type": "object",
+        "title": "JudgeProfile"
+      },
+      "JudgementRead": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JudgementStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "vulnerability_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vulnerability Type"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence"
+          },
+          "rationale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rationale"
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence Refs"
+          },
+          "requires_human_review": {
+            "type": "boolean",
+            "title": "Requires Human Review",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id"
+        ],
+        "title": "JudgementRead"
+      },
+      "JudgementStatus": {
+        "type": "string",
+        "enum": [
+          "SUCCESS",
+          "FAILURE",
+          "INCONCLUSIVE",
+          "HUMAN_REVIEW"
+        ],
+        "title": "JudgementStatus"
+      },
+      "MessageRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "role": {
+            "$ref": "#/components/schemas/MessageRole"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "content"
+        ],
+        "title": "MessageRead"
+      },
+      "MessageRole": {
+        "type": "string",
+        "enum": [
+          "SYSTEM",
+          "RED",
+          "TARGET",
+          "JUDGE",
+          "TOOL"
+        ],
+        "title": "MessageRole"
+      },
+      "RedAgentProfile": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Provider",
+            "default": "mock"
+          },
+          "model": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Model",
+            "default": "mock-red-agent"
+          },
+          "strategy_set": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Strategy Set"
+          },
+          "memory_enabled": {
+            "type": "boolean",
+            "title": "Memory Enabled",
+            "default": true
+          },
+          "config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Config"
+          }
+        },
+        "type": "object",
+        "title": "RedAgentProfile"
+      },
+      "RunActionResponse": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "accepted": {
+            "type": "boolean",
+            "title": "Accepted"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CampaignStatus"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "accepted",
+          "status"
+        ],
+        "title": "RunActionResponse"
+      },
+      "RunMetricsRead": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "total_turns": {
+            "type": "integer",
+            "title": "Total Turns",
+            "default": 0
+          },
+          "total_tokens": {
+            "type": "integer",
+            "title": "Total Tokens",
+            "default": 0
+          },
+          "refusal_count": {
+            "type": "integer",
+            "title": "Refusal Count",
+            "default": 0
+          },
+          "latency_ms_p50": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latency Ms P50"
+          },
+          "latency_ms_p95": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latency Ms P95"
+          },
+          "cost_estimate_usd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Estimate Usd"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id"
+        ],
+        "title": "RunMetricsRead"
+      },
+      "ScenarioConfig": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "objective": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Objective"
+          },
+          "success_criteria": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Success Criteria"
+          },
+          "prohibited_actions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Prohibited Actions"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "objective"
+        ],
+        "title": "ScenarioConfig"
+      },
+      "ScopeMode": {
+        "type": "string",
+        "enum": [
+          "LOCAL_ONLY",
+          "PRIVATE_NETWORK",
+          "EXPLICIT_ALLOWLIST"
+        ],
+        "title": "ScopeMode"
+      },
+      "ScopePolicyConfig": {
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/ScopeMode",
+            "default": "LOCAL_ONLY"
+          },
+          "allowed_hosts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Hosts"
+          },
+          "allowed_cidrs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Allowed Cidrs"
+          },
+          "blocked_ports": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Blocked Ports"
+          }
+        },
+        "type": "object",
+        "title": "ScopePolicyConfig"
+      },
+      "ScopeValidationResponse": {
+        "properties": {
+          "target_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Id"
+          },
+          "allowed": {
+            "type": "boolean",
+            "title": "Allowed"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_id",
+          "allowed"
+        ],
+        "title": "ScopeValidationResponse"
+      },
+      "TargetConfig": {
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/TargetType"
+          },
+          "target_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Id"
+          },
+          "base_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Url"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Config"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "TargetConfig"
+      },
+      "TargetCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TargetType"
+          },
+          "base_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Url"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Config"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "type"
+        ],
+        "title": "TargetCreate"
+      },
+      "TargetHealthResponse": {
+        "properties": {
+          "target_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Target Id"
+          },
+          "reachable": {
+            "type": "boolean",
+            "title": "Reachable"
+          },
+          "details": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_id",
+          "reachable"
+        ],
+        "title": "TargetHealthResponse"
+      },
+      "TargetRead": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TargetType"
+          },
+          "base_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Url"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "config": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Config"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "is_enabled": {
+            "type": "boolean",
+            "title": "Is Enabled"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "id",
+          "is_enabled"
+        ],
+        "title": "TargetRead"
+      },
+      "TargetType": {
+        "type": "string",
+        "enum": [
+          "LOCAL_LLM",
+          "OPENAI_COMPATIBLE",
+          "RAG_APP",
+          "TOOL_AGENT",
+          "MOCK_LAB"
+        ],
+        "title": "TargetType"
+      },
+      "TranscriptRead": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "turns": {
+            "items": {
+              "$ref": "#/components/schemas/TurnRead"
+            },
+            "type": "array",
+            "title": "Turns"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "turns"
+        ],
+        "title": "TranscriptRead"
+      },
+      "TurnRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "turn_index": {
+            "type": "integer",
+            "title": "Turn Index"
+          },
+          "red_message": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MessageRead"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "target_message": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MessageRead"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "strategy": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Strategy"
+          },
+          "refusal_detected": {
+            "type": "boolean",
+            "title": "Refusal Detected",
+            "default": false
+          },
+          "token_usage": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Token Usage"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latency Ms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "turn_index"
+        ],
+        "title": "TurnRead"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
