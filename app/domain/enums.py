@@ -1,0 +1,56 @@
+from enum import StrEnum
+
+
+class CampaignStatus(StrEnum):
+    DRAFT = "DRAFT"
+    QUEUED = "QUEUED"
+    RUNNING = "RUNNING"
+    CANCELLING = "CANCELLING"
+    CANCELLED = "CANCELLED"
+    SUCCEEDED = "SUCCEEDED"
+    FAILED = "FAILED"
+    INCONCLUSIVE = "INCONCLUSIVE"
+    HUMAN_REVIEW = "HUMAN_REVIEW"
+    ERROR = "ERROR"
+    TIMEOUT = "TIMEOUT"
+
+
+class TargetType(StrEnum):
+    LOCAL_LLM = "LOCAL_LLM"
+    OPENAI_COMPATIBLE = "OPENAI_COMPATIBLE"
+    RAG_APP = "RAG_APP"
+    TOOL_AGENT = "TOOL_AGENT"
+    MOCK_LAB = "MOCK_LAB"
+
+
+class ScopeMode(StrEnum):
+    LOCAL_ONLY = "LOCAL_ONLY"
+    PRIVATE_NETWORK = "PRIVATE_NETWORK"
+    EXPLICIT_ALLOWLIST = "EXPLICIT_ALLOWLIST"
+
+
+class JudgementStatus(StrEnum):
+    SUCCESS = "SUCCESS"
+    FAILURE = "FAILURE"
+    INCONCLUSIVE = "INCONCLUSIVE"
+    HUMAN_REVIEW = "HUMAN_REVIEW"
+
+
+class AgentType(StrEnum):
+    RED = "RED"
+    TARGET = "TARGET"
+    JUDGE = "JUDGE"
+    VERIFIER = "VERIFIER"
+
+
+class MemoryType(StrEnum):
+    SHORT_TERM = "SHORT_TERM"
+    EPISODIC_ATTACK = "EPISODIC_ATTACK"
+
+
+class MessageRole(StrEnum):
+    SYSTEM = "SYSTEM"
+    RED = "RED"
+    TARGET = "TARGET"
+    JUDGE = "JUDGE"
+    TOOL = "TOOL"
